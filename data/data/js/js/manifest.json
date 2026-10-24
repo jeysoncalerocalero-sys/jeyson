@@ -1,0 +1,16 @@
+{
+  "name": "Jeyson",
+  "short_name": "Jeyson",
+  "description": "Jeyson: un muñequito que te espera, te pregunta y construye su casa contigo.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b0e0c",
+  "theme_color": "#0b0e0c",
+  "lang": "es",
+  "icons": [
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
