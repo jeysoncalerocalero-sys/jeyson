@@ -10,7 +10,11 @@
   "theme_color": "#0b0e0c",
   "lang": "es",
   "icons": [
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><rect width='512' height='512' fill='%230b0e0c'/><circle cx='256' cy='252' r='214' fill='%2338e07b' opacity='0.13'/><path d='M256 272c-88 0-152 46-166 118-4 20 8 34 28 34h276c20 0 32-14 28-34-14-72-78-118-166-118z' fill='%231a2220'/><rect x='238' y='226' width='36' height='66' rx='17' fill='%23e0ab84'/><path d='M186 288c18 26 42 40 70 40s52-14 70-40c-22-12-45-18-70-18s-48 6-70 18z' fill='%233a4642'/><circle cx='256' cy='192' r='90' fill='%23f0c19b'/><path d='M166 186c0-54 40-92 90-92s90 38 90 92c-8-8-14-18-18-30-14 8-34 12-58 8-20-4-36-14-54-14-22 0-40 12-46 32-4 10-8 8-8 4z' fill='%23161a1c'/><circle cx='224' cy='196' r='12' fill='%2314181a'/><circle cx='288' cy='196' r='12' fill='%2314181a'/><circle cx='228' cy='191' r='4' fill='%23ffffff'/><circle cx='292' cy='191' r='4' fill='%23ffffff'/><path d='M232 230c10 12 38 12 48 0' fill='none' stroke='%238a4b3a' stroke-width='8' stroke-linecap='round'/><g transform='translate(298 312)'><rect width='82' height='70' rx='14' fill='%23f4f6f5'/><rect width='82' height='18' rx='9' fill='%2338e07b'/><path d='M82 20h12a16 16 0 0 1 0 32h-12' fill='none' stroke='%23f4f6f5' stroke-width='11'/></g></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
   ]
 }
