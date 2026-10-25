@@ -1,23 +1,53 @@
-const CACHE = 'jeyson-v2';
-const ARCHIVOS = ['./', './index.html', './manifest.json', './data/config.js',
-  './data/preguntas.js', './js/anim.js', './js/juego.js', './js/app.js', './icons/icon-512.png'];
 
-self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ARCHIVOS)).then(() => self.skipWaiting()));
+const CACHE = 'jeyson-v4';
+
+const ARCHIVOS = [
+  './',
+  './index.html',
+  './manifest.json',
+  './data/config.js',
+  './data/preguntas.js',
+  './js/anim.js',
+  './js/juego.js',
+  './js/app.js'
+];
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE)
+      .then(cache => cache.addAll(ARCHIVOS))
+      .then(() => self.skipWaiting())
+  );
 });
 
-self.addEventListener('activate', e => {
-  e.waitUntil(caches.keys()
-    .then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k))))
-    .then(() => self.clients.claim()));
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys()
+      .then(keys => Promise.all(
+        keys
+          .filter(key => key !== CACHE)
+          .map(key => caches.delete(key))
+      ))
+      .then(() => self.clients.claim())
+  );
 });
 
-self.addEventListener('fetch', e => {
-  const u = new URL(e.request.url);
-  if (u.origin !== location.origin) return;
-  e.respondWith(
-    fetch(e.request)
-      .then(r => { const c = r.clone(); caches.open(CACHE).then(x => x.put(e.request, c)); return r; })
-      .catch(() => caches.match(e.request))
+self.addEventListener('fetch', event => {
+  const url = new URL(event.request.url);
+
+  if (url.origin !== self.location.origin) return;
+
+  event.respondWith(
+    fetch(event.request)
+      .then(response => {
+        if (response.ok) {
+          const copia = response.clone();
+          caches.open(CACHE).then(cache => {
+            cache.put(event.request, copia);
+          });
+        }
+        return response;
+      })
+      .catch(() => caches.match(event.request))
   );
 });
