@@ -6,13 +6,12 @@
 <title>Jeyson</title>
 <meta name="description" content="Jeyson: un muñequito que te espera, te pregunta y construye su casa contigo.">
 <meta name="theme-color" content="#0b0e0c">
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon-512.png">
-<link rel="apple-touch-icon" href="icons/icon-512.png">
+<link rel="manifest" href="./manifest.json">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Jeyson">
+
 <style>
 :root{--bg:#0b0e0c;--card:#131a16;--card2:#0f1512;--line:#24352b;--accent:#3ee07f;--txt:#e9f2ec;--dim:#8ba294;--warn:#e0b83a;--bad:#e05a5a}
 *{box-sizing:border-box}
@@ -112,4 +111,99 @@ input:focus,select:focus{border-color:var(--accent)}
 .par{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px;margin-bottom:9px}
 .par h4{margin:0 0 6px;font-size:13.5px;color:var(--accent)}
 .par p{margin:0 0 7px;font-size:12.5px;line-height:1.6;color:#d3e2d8}
-.par .ref{font-size:12px;color:var(--dim);font-style:italic
+.par .ref{font-size:12px;color:var(--dim);font-style:italic;border-left:2px solid var(--accent);padding-left:8px}
+.par.lock{opacity:.42}
+.kv{font-size:12.5px;line-height:1.85;color:#d3e2d8}
+.kv span{color:var(--dim)}
+.conf{position:fixed;width:7px;height:11px;z-index:80;pointer-events:none;animation:caer 1.7s linear forwards}
+@keyframes caer{to{transform:translateY(105vh) rotate(600deg);opacity:0}}
+.jhead{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+.jstat{background:var(--card2);border:1px solid var(--line);border-radius:11px;padding:7px 4px;text-align:center;font-size:10px;color:var(--dim)}
+.jstat b{display:block;font-size:14px;color:var(--txt);margin-bottom:2px}
+.opciones{display:grid;gap:7px;margin-top:10px}
+.op{font:inherit;font-size:13.5px;text-align:left;padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:var(--card2);color:var(--txt);cursor:pointer;transition:.15s}
+.op:hover{border-color:var(--accent)}
+.op.ok{background:#16402a;border-color:var(--accent);color:#c9ffdd}
+.op.no{background:#3a1b1b;border-color:var(--bad);color:#ffd0d0}
+.op.apagada{opacity:.32}
+.tiempo{height:7px;background:#0a1410;border-radius:20px;overflow:hidden;margin-top:10px}
+.tiempo i{display:block;height:100%;background:var(--accent);transition:width .25s linear}
+.poderes{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}
+.poderes .btn{padding:9px 2px;font-size:10.5px}
+.casaGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.pieza{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:10px}
+.pieza .ico{font-size:22px}
+.pieza .nom{font-size:12.5px;font-weight:600;margin:4px 0 2px}
+.pieza .bon{font-size:10.5px;color:var(--dim);line-height:1.4;margin-bottom:6px}
+.pieza .niv{display:flex;gap:3px;margin-bottom:7px}
+.pieza .niv i{width:16px;height:5px;border-radius:3px;background:#1d2b23}
+.pieza .niv i.on{background:var(--accent)}
+.pieza .cos{font-size:10.5px;color:var(--warn);margin-bottom:6px}
+.pieza .btn{width:100%;font-size:11px;padding:6px}
+.pieza.tope{border-color:#2c5a3d}
+.patio{position:relative;height:118px;border-radius:14px;border:1px dashed var(--line);background:linear-gradient(180deg,#0d1a12,#0a120d);margin-bottom:10px;overflow:hidden;display:flex;flex-wrap:wrap;align-content:flex-end;justify-content:center;gap:2px;padding:8px}
+.patio span{font-size:26px;filter:grayscale(1) opacity(.22)}
+.patio span.on{filter:none;animation:aparecer2 .6s ease-out}
+@keyframes aparecer2{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}
+.tip{font-size:11.5px;color:var(--dim);line-height:1.6}
+.mats{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--dim);margin-bottom:8px}
+.mats b{color:var(--txt)}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="dot"></span><b id="nombre">Jeyson</b><span class="lvl" id="lvlTxt">nivel 1</span></div>
+  <div style="display:flex;gap:6px">
+    <button class="btn ghost hidden" id="btnInstalar">instalar</button>
+    <button class="btn ghost" id="btnFicha">ficha</button>
+  </div>
+</header>
+
+<section class="escena" id="escena">
+  <div class="char" id="char">
+    <div class="cabeza"><div class="ojo i"></div><div class="ojo d"></div><div class="boca" id="boca"></div></div>
+    <div class="torso"></div><div class="brazo i"></div><div class="brazo d"></div>
+    <div class="prop" id="prop"></div>
+    <div class="corazones" id="corazones"></div>
+  </div>
+  <div class="bubble" id="bubble">hola. soy Jeyson. tócame un rato, ¿sí?</div>
+  <div class="sleep hidden" id="sleep" style="position:absolute;inset:0;background:rgba(3,5,4,.9);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:20px;font-size:13px;color:var(--dim)">se apagó...<br><small>escríbele o toca un botón para despertarlo</small></div>
+</section>
+
+<div class="animoWrap">
+  <div class="animoLabel">ánimo</div>
+  <div class="bar"><div class="fill" id="animoFill" style="width:100%"></div></div>
+</div>
+
+<nav class="tabs">
+  <button data-tab="cuidar" class="on">cuidar</button>
+  <button data-tab="jugar">jugar</button>
+  <button data-tab="hablar">hablar</button>
+  <button data-tab="libro">libro</button>
+</nav>
+
+<main>
+  <section id="tab-cuidar"></section>
+  <section id="tab-jugar" class="hidden"></section>
+  <section id="tab-hablar" class="hidden"></section>
+  <section id="tab-libro" class="hidden"></section>
+</main>
+
+<div class="overlay" id="ov"><div class="ovIn" id="ovIn"></div></div>
+
+<script src="./data/config.js"></script>
+<script src="./data/preguntas.js"></script>
+<script src="./js/anim.js"></script>
+<script src="./js/juego.js"></script>
+<script src="./js/app.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('./sw.js').catch(function (error) {
+      console.error('No se pudo registrar el service worker:', error);
+    });
+  });
+}
+</script>
+</body>
+</html>
