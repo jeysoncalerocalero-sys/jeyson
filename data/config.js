@@ -1,18 +1,18 @@
-/* AJUSTES — este es el archivo que tú tocas */
+
+/* AJUSTES DE JEYSON */
 
 window.CONFIG = {
-
-  /* Clave gratis de Gemini: https://aistudio.google.com/apikey
-     Si la dejas vacía, todo funciona igual, pero sin IA. */
   geminiKey: '',
 
-  modelo: 'gemini-3.6-flash',
+  modelo: 'gemini-2.5-flash',
 
-  /* Respaldo por si Google cambia los nombres. */
-  modelosAlternos: ['gemini-3.8-flash','gemini-3.5-flash-lite','gemini-3.1-flash-lite','gemini-2.5-flash'],
+  modelosAlternos: [
+    'gemini-2.5-flash',
+    'gemini-2.0-flash'
+  ],
 
   usarIA: true,
-  temperatura: 0.95,
+  temperatura: 0.8,
   maxTokens: 400,
   thinkingBudget: 0,
 
